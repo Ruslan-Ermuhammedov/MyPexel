@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add this to your styles or in your HTML file */
+.hide-scroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 11 */
+  }
+  
+  .hide-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+  
