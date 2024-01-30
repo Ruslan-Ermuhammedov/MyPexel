@@ -89,7 +89,7 @@ function AdminPage() {
                 <div className='flex flex-row gap-10 py-20  '>
 
                     <div className='w-[570px] h-[400px] rounded-2xl border border-gray-200 bg-white shadow-md shadow-gray-300 flex items-center justify-center'>
-                        <img src={`${imageFile}`} className='w-full  bg-cover rounded-2xl' alt="" />
+                        <img src={`${imageFile}`} className='w-full max-h-[400px]  bg-cover rounded-2xl' alt="" />
                     </div>
 
                     <div className='w-full flex flex-row gap-10'>

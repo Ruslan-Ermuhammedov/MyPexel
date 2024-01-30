@@ -33,7 +33,7 @@ function App() {
     localStorage.setItem("Name", Name);
 
   }, [token, role, gender, basketId, Name]);
-
+  // setApiLenght
   // const DeleteBtn = () => {
   //   // Lokal ma'lumotlarni tozalash
   //   localStorage.removeItem("token");

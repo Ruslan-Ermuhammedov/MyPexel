@@ -69,13 +69,13 @@ function ProductsImageCardUi({ image }) {
           onClick={deteilHaendlear}
           onMouseEnter={() => setIconVisible(true)}
           onMouseLeave={() => setIconVisible(false)}
-          className='  bg-gradient-to-t cursor-pointer  from-[#00000039]     duration-300 w-full h-full absolute transition'>
+          className='  bg-gradient-to-t cursor-pointer  from-[#00000039]     outline-none focus:ring-4 shadow-sm transform active:scale-50 transition-transform w-full h-full absolute '>
           {/* className=' bg-[linear-gradient(0deg, rgba(65,65,65,0.9248949579831933) 0%, rgba(206,206,206,0) 100%)] w-full h-full absolute'> */}
 
         </div>
       )}
       <img
-        className={`  bg-[url("https://i.postimg.cc/fbpx3p5Y/check-3.jpg")] card-img `}
+        className={`  bg-[url("https://i.postimg.cc/fbpx3p5Y/check-3.jpg")] card-img  `}
         // defaultValue={imageUrl}
         src={`${imageUrl}${image.image}`}
         alt="hato"
@@ -89,7 +89,7 @@ function ProductsImageCardUi({ image }) {
           <FiDownload onMouseEnter={() => setIconVisible(true)}
             onMouseLeave={() => setIconVisible(false)}
             onClick={handleDownload}
-            className={`h-auto cursor-pointer text-3xl absolute bottom-3  left-[87%]  text-[#ffffff]    font-bold `} />
+            className={`h-auto cursor-pointer text-3xl absolute bottom-3  left-[87%]  text-[#ffffff]    font-bold    outline-none focus:ring-4 shadow-sm transform active:scale-75 transition-transform `} />
 
         )}
         {iconVisible && (
@@ -97,7 +97,7 @@ function ProductsImageCardUi({ image }) {
             onClick={AddBasketHaendlear}
             onMouseEnter={() => setIconVisible(true)}
             onMouseLeave={() => setIconVisible(false)}
-            className='text-3xl absolute bottom-[58px]  left-[88%]  text-[#612fea]    font-bold'
+            className='text-3xl absolute bottom-[58px]  left-[88%]  text-[#612fea]    font-bold    outline-none  shadow-sm transform active:scale-75 transition-transform'
           >
             <svg
               className='w-6 h-6   '

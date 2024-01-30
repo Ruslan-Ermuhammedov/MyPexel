@@ -25,7 +25,6 @@ const Navbar = () => {
   const [basketApi, setBasketApi] = useState([])
   // const [gen,setGen]=useState("")
   function lenght(){
-
     setApiLenght(basketApi.length)
   }
   lenght()

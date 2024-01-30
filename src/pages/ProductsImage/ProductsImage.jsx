@@ -28,7 +28,7 @@ function ProductsImage() {
                 }
                 )
                 .catch(() => {
-                    dispatch({ type: "REJECTED", payload: "Qandatdur hatolik bor" })
+                    dispatch({ type: "REJECTED", payload: "Qandaydur hatolik bor" })
                     setHato("hatolik bor")
                 }
                 )
@@ -38,7 +38,6 @@ function ProductsImage() {
     useEffect(() => {
         function imgCategoryData() {
             dispatch({ type: "LOADING" })
-
             axios.get(`${baseUrl}categories/`)
                 .then((res) => {
                     dispatch({ type: "SUCCESS", payload: res.data.result })
@@ -46,7 +45,7 @@ function ProductsImage() {
                 }
                 )
                 .catch(() => {
-                    dispatch({ type: "REJECTED", payload: "Qandatdur hatolik bor" })
+                    dispatch({ type: "REJECTED", payload: "Qandaydur hatolik bor" })
 
                     setHato(" categoiesda hatolik bor")
                 })
@@ -64,7 +63,7 @@ function ProductsImage() {
                     setQueryImageApi(res.data)
                 })
                 .catch(() => {
-                    dispatch({ type: "REJECTED", payload: "Qandatdur hatolik bor" })
+                    dispatch({ type: "REJECTED", payload: "Qandaydur hatolik bor" })
                    setHato(" categoiesda hatolik bor")
                 })
         }
@@ -74,11 +73,11 @@ function ProductsImage() {
     return (
         <div className='px-16 py-5   '>
             <div className='flex  flex-row gap-7 py-10 overflow-x-auto hide-scroll'>
-                <button onClick={() => handleCategoryClick('All Categories')} className='inline-flex px-[25px] h-[45px] items-center justify-center rounded-[10px] border border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200  duration-300 w-full  outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform'>
+                <button onClick={() => handleCategoryClick('All Categories')} className='inline-flex px-[25px] h-[45px] items-center justify-center rounded-[10px] border border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200  duration-300 w-full  outline-none focus:ring-4 shadow-md transform active:scale-75 transition-transform'>
                     All
                 </button>
                 {categoriesImg.map((category, index) => (
-                    <button onClick={() => handleCategoryClick(category.name)} className='inline-flex px-[25px] h-[35px] items-center justify-center rounded-[10px] border border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200  w-auto  outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform ' key={index}>
+                    <button onClick={() => handleCategoryClick(category.name)} className='inline-flex px-[25px] h-[35px] items-center justify-center rounded-[10px] border border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200  w-auto  outline-none focus:ring-4 shadow-md transform active:scale-75 transition-transform ' key={index}>
                         {category.name}
                     </button>
                 ))}
