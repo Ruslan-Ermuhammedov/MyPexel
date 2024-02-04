@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../../App';
-import { baseUrl} from '../../constants/baseUrl';
+import { baseUrl } from '../../constants/baseUrl';
 
 function AdminPage() {
     const [image, setImage] = useState(null);
@@ -12,13 +12,50 @@ function AdminPage() {
     const [tag, setTag] = useState("");
     const [tagAll, setTagAll] = useState([]);
     const [selectCategory, setSelectCategory] = useState([])
-    const [Hato,setHato]=useState()
+    const { setUrl } = useContext(StateContext)
+    const [Hato, setHato] = useState()
     // const formData = new FormData();
     // formData.append('image', image);
-    console.log(tag)
+    // console.log(tag)
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+
+        // Check if a file is selected
+        if (file) {
+            const allowedExtensions = `/\.(png)$/i`;
+
+            // Check if the file type is allowed
+            if (!allowedExtensions.test(file.name)) {
+                alert('Invalid file type. Only PNG images are allowed.');
+                // Optionally, you can clear the file input
+                event.target.value = '';
+                return;
+            }
+
+            // File type is valid, update the state
+            setSelectedFile(file);
+        }
+    };
     const ImageFilehaendlear = (e) => {
-        setImage(e.target.files[0])
-        setImageFile(URL.createObjectURL(e.target.files[0]))
+        const file = e.target.files[0];
+
+        // Check if a file is selected
+        if (file) {
+            const allowedExtensions = /\.(png)$/i;
+
+            // Check if the file type is allowed
+            if (!allowedExtensions.test(file.name)) {
+                alert('Invalid file type. Only PNG images are allowed.');
+                // Optionally, you can clear the file input
+                e.target.value = '';
+                return;
+            }
+
+            // File type is valid, update the state
+            //   setSelectedFile(file);
+            setImage(e.target.files[0])
+            setImageFile(URL.createObjectURL(e.target.files[0]))
+        }
     }
 
     const ImageHaendlear = () => {
@@ -53,14 +90,17 @@ function AdminPage() {
     }, []);
 
 
-    const TegHaendlear = () => {
-        if(tag) setTagAll([...tagAll, tag].slice(0, 20))
+    const TegHaendlear = (e) => {
+        e.preventDefault()
+        if (tag) setTagAll([...tagAll, tag].slice(0, 20))
         setTag("")
 
     }
     // console.log(selectCategory)
     // console.log(tagAll)
     // console.log(image)
+    const currentPageUrl = window.location.href;
+    setUrl(currentPageUrl)
     return (
         <div className=' bg-[#F0F0F8]'>
             <div className='px-11'>
@@ -79,45 +119,50 @@ function AdminPage() {
                         <label className=" w-52" style={{ backgroundColor: '#6D71F9', color: 'white', padding: '5px', borderRadius: '10px', cursor: 'pointer', textAlign: "center" }}>
                             Or Browse
                             {/* Fayl tanlash uchun input */}
-                            <input required className="sr-only" name='image' onChange={ImageFilehaendlear} type="file" />
+                            <input required className="sr-only" name='image' accept=".png" onChange={ImageFilehaendlear} type="file" />
                         </label>
                         <h1 className='text-sm font-semibold text-[#272847]'>Drag in drop files or</h1>
                     </div>
                 </div>
 
                 {/* form qimi */}
-                <div className='flex flex-row gap-10 py-20  '>
+                <div className='flex flex-row gap-10 py-20 relative  '>
 
-                    <div className='w-[570px] h-[400px] rounded-2xl border border-gray-200 bg-white shadow-md shadow-gray-300 flex items-center justify-center'>
+                    <div className='w-[570px] h-[400px] rounded-2xl border border-gray-200 bg-white shadow-md flex-2 mi-w-[500px] shadow-gray-300 flex items-center justify-center'>
                         <img src={`${imageFile}`} className='w-full max-h-[400px]  bg-cover rounded-2xl' alt="" />
                     </div>
 
                     <div className='w-full flex flex-row gap-10'>
 
-                        <div className=' w-[300px]   flex flex-col gap-3    ' >
+                        <div className=' w-[300px]   flex flex-col gap-3 flex-2   ' >
+                       
                             <label className='flex flex-col gap-1 w-full text-lg text-gray-600 ' >Name:
                                 <input required className='px-3 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setName(e.target.value)} value={name} type="text" name='name' />
                             </label>
                             <label className='flex flex-col gap-1 w-full text-lg text-gray-600 ' >Category:
-                                <select className='px-3 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setCategory(e.target.value)} type="text" name='name' >
+                                <select className='p-2 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setCategory(e.target.value)} type="text" name='name' >
                                     {selectCategory.map((category, index) => (
-                                        <option key={index} value={category?.id}>{category?.name}</option>
+                                        <option className=' mr-10 ' key={index} value={category?.id}>{category?.name}</option>
                                     ))}
                                 </select>
                             </label>
-                            <label  htmlFor="" className='flex flex-col gap-1 w-full text-lg text-gray-600 '>Tege:
-                                <input  className='px-3 py-1 rounded-3xl border-2 border-gray-300'  required value={tag} onChange={e => setTag(e.target.value)} type="text" id="" />
-                            </label>
-                            <div className='flex flex-row gap-2'>
-                                <button className='w-full bg-cyan-600 text-white rounded-3xl  text-lg h-10  mt-8' onClick={TegHaendlear}>Add Teg</button>
-                                <button className='w-full bg-emerald-600 text-white rounded-3xl  text-lg h-10  mt-8' onClick={ImageHaendlear} >Save Image</button>
+                            <form className='flex flex-col gap-2' onSubmit={TegHaendlear} >
 
-                            </div>
+                                <label htmlFor="" className='flex flex-col gap-1 w-full text-lg text-gray-600 '>Tags:
+                                    <input className='px-3 py-1 rounded-3xl border-2 border-gray-300'  required value={tag} onChange={e => setTag(e.target.value)} type="text" id="" />
+                                </label>
+                                <button className=' bg-cyan-600 text-white rounded-3xl  text-lg h-10 absolute w-[130px] top-[340px] ' >Add Tag</button>
+                            </form>
+                            <button className=' bg-emerald-600 text-white rounded-3xl  text-lg h-10 absolute w-[130px] top-[340px]  left-[590px] xl:left-[620px] ml-4 ' onClick={ImageHaendlear} >Save Image</button>
+
+                            {/* <div className='flex flex-row gap-2'> */}
+
+                            {/* </div> */}
                         </div>
-                        <div className=' h-96 rounded-2xl border border-gray-200 shadow-md shadow-gray-300 bg-white   flex-shrink-0   w-[600px]   p-5 gap-3'>
+                        <div className=' h-96 rounded-2xl border border-gray-200 shadow-md shadow-gray-300 bg-white   flex-shrink-0   min-w-[600px]  flex-1  max-w-[1400px]  p-5 gap-3 overflow-y-auto hide-scroll'>
                             {
                                 tagAll.map((tg, index) => (
-                                    <h1 className={` inline-flex px-[25px] h-[40px] mt-2 items-center text-center mr-2  row-span-auto   justify-center rounded-[10px] border  border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200 transition flex-shrink-0`} key={index}>
+                                    <h1 className={` inline-flex px-[25px] h-[40px] mt-2 items-center text-center mr-2  row-span-auto   justify-center rounded-[10px] border  border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200 transition flex-shrink-0 `} key={index}>
                                         {tg}
                                     </h1>
                                 ))
@@ -127,7 +172,7 @@ function AdminPage() {
 
                 </div>
 
-{/*  */}
+                {/*  */}
                 {/* <form className=' w-full   flex flex-row gap-7   ' onSubmit={ImageHaendlear}>
                             <label className='flex flex-col gap-1 w-full text-lg text-gray-600 ' >Name:
                                 <input className='px-3 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setName(e.target.value)} type="text" name='name' />

@@ -11,8 +11,10 @@
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem; }
+  border: 1px solid rgba(51, 51, 51, 0.125);
+  border-radius: 0.25rem;
+  /* min-height: 200px auto ; */
+}
 
   .card-img-overlay {
   position: absolute;
@@ -56,7 +58,9 @@
   margin-left: auto; }
 
   .card-columns .card {
-  margin-bottom: 0.75rem; }
+  margin-bottom: 0.75rem; 
+  padding-bottom: -20px;
+}
 
 @media (min-width: 576px) {
   /* line 256, node_modules/bootstrap/scss/_card.scss */

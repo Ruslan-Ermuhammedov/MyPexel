@@ -8,7 +8,6 @@ import { StateContext } from '../../App'
 function Login() {
   const {setRole, setName, token, setToken, gender, setGender, setUrl } = useContext(StateContext)
   const [show, setShow] = useState(false)
-
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()

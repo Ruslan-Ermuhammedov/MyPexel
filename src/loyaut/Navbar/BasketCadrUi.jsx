@@ -44,7 +44,7 @@ function BasketCadrUi({ item }) {
 
             <img className=' w-20 bg-[#f8f8f8]' src={`${imageUrl}${item?.url}`} alt="" />
 
-            <h1 className=' text-xl text w-20 font-mono'>{item?.name.slice(0, 9)}...</h1>
+            <h1 className=' text-[15px] w-20 '>{item?.name}</h1>
 
             <button onClick={DeleteBasket} className='    '>
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">

@@ -25,7 +25,7 @@ function DateilImageCard({ image }) {
         const blobUrl = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = blobUrl;
-        link.download = 'downloaded_image.jpg'; // Set a default filename or derive it from the image URL
+        link.download = `${image.custom_name}.png`; // Set a default filename or derive it from the image URL
         link.click();
         window.URL.revokeObjectURL(blobUrl);
       })

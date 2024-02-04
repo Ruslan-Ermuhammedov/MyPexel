@@ -23,6 +23,8 @@ function BasketCard({ basketApi }) {
           link.setAttribute('download', 'cart_images.zip'); // Specify the desired filename
           document.body.appendChild(link);
           link.click();
+          window.location.reload();
+
         })
         .catch((err) =>setHato(err) );
     }
