@@ -5,13 +5,15 @@ import ProductsImageCard from './components/ProductsImageCard';
 import { StateContext } from '../../App';
 import { ImageAPiInitialState, ImageAPiReducer } from '../../reducer/ImagesApiReducer/ImagesAPiReducer';
 import { TailSpin } from 'react-loader-spinner'
+import SearchEmpty from '../../assets/images/EmptySearcha.png'
+
 function ProductsImage() {
     const { categoriesImg, setCategoriesImg, productsImg, setProductsImg, quary } = useContext(StateContext)
     const [Category, setCategory] = useState("All Categories")
     const [queryImageApi, setQueryImageApi] = useState([])
     const [state, dispatch] = useReducer(ImageAPiReducer, ImageAPiInitialState)
     // ?tags=nimadir
-    const [Hato,setHato]=useState()
+    const [Hato, setHato] = useState()
     const handleCategoryClick = (category) => {
         setCategory(category)
     }
@@ -64,7 +66,7 @@ function ProductsImage() {
                 })
                 .catch(() => {
                     dispatch({ type: "REJECTED", payload: "Qandaydur hatolik bor" })
-                   setHato(" categoiesda hatolik bor")
+                    setHato(" categoiesda hatolik bor")
                 })
         }
         imgCategoryData()
@@ -99,7 +101,11 @@ function ProductsImage() {
                     />
                 </button>
                 </h1>}
-                {state.rejected && <h1>{state.rejected}</h1>}
+                {state.rejected && <div className=' flex  flex-col  gap-5  w-[100px] '>
+                    <img className='  absolute w-[1000px] left-[23%]    ' src={SearchEmpty} alt="" />
+
+                    <h1 className=' absolute text-xl font-medium italic text-[#acacac] left-[44%]'>Searched Image Not Found</h1>
+                </div>}
                 {state.isSuccess &&
                     <ProductsImageCard productsImg={
                         quary ? queryImageApi

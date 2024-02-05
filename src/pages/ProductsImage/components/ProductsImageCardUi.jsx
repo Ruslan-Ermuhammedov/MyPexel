@@ -67,7 +67,7 @@ function ProductsImageCardUi({ image }) {
           onClick={deteilHaendlear}
           onMouseEnter={() => setIconVisible(true)}
           onMouseLeave={() => setIconVisible(false)}
-          className='bg-gradient-to-t cursor-pointer from-[#00000039] outline-none focus:ring-4 shadow-sm transform active:scale-0 transition-transform w-full h-full absolute z-10'
+          className='bg-gradient-to-t cursor-pointer from-[#00000039] outline-none focus:ring-4 shadow-sm transform active:scale-[.9] active:rounded-2xl transition-transform w-full h-full absolute z-10'
         />
       )}
       <LazyLoadImage
