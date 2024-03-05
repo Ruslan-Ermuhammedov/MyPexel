@@ -3,10 +3,16 @@ import BasketCadrUi from './BasketCadrUi'
 import { StateContext } from '../../App'
 import axios from 'axios'
 import { baseUrl } from '../../constants/baseUrl'
-import Empty from '../../assets/images/empty.png'
+import Empty from '../../assets/images/BasketDefout.png'
 function BasketCard({ basketApi }) {
-  const { basketId, token } = useContext(StateContext);
+  const { basketId, token,setApiLenght } = useContext(StateContext);
   const [Hato,setHato]=useState()
+  // console.log(basketApi)
+  useEffect(() => {
+    if (basketApi) {
+      setApiLenght(basketApi.length);
+    }
+  }, [basketApi, setApiLenght]);
 
   const DownloadAll = () => {
     function downloadData() {
@@ -40,7 +46,7 @@ function BasketCard({ basketApi }) {
         }
       </div>
       {
-        basketApi.length >=1 ?
+        basketApi?.length >=1 ?
       
       <div className='w-[87%] left-7 h-[155px] fixed bottom-1 bg-white  border-t border-gray-300 '>
         <div className='flex flex-row items-center w-full m-auto justify-between  py-2 border-b border-gray-200 pb-3 '>
@@ -49,9 +55,8 @@ function BasketCard({ basketApi }) {
         </div>
         <button onClick={DownloadAll} className='w-[310px] ml-[10px] bg-[#6999ff] text-white rounded-3xl py-2 text-xl mt-5'>Download All</button>
       </div>
-      :  <div>
-        <img src={Empty} alt="hato" />
-        <h1 className=' text-2xl font-semibold ml-[25%]'>Your Cart Is Empty </h1>
+      :  <div className=' '>
+        <img src={Empty} className=' pt-[30%]' alt="hato" />
         </div>
       }
   

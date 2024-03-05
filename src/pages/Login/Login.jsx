@@ -73,7 +73,7 @@ function Login() {
         <label htmlFor="" className='flex flex-col gap-1 w-full text-lg text-gray-600 '>Password
           <input required onChange={e => setPassword(e.target.value)} className='px-3 py-1 rounded-3xl border-2 border-gray-300' type="password" name="password" id="" />
         </label>
-        <button className='w-full bg-sky-400 text-white rounded-3xl py-1 text-xl mt-5 px-4  outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform' >Sign in</button>
+        <button className='w-full bg-sky-400 text-white rounded-3xl py-1 text-xl mt-5 px-4  outline-none focus:ring-4 shadow-lg transform active:scale-50 transition-transform' >Sign in</button>
         <h1 className='text-md text-slate-400'>
           Don't you have account ?        <Link to={"/register"} className='text-blue-500'> Sign up</Link>
         </h1>

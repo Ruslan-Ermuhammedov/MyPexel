@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../../App';
 import { baseUrl } from '../../constants/baseUrl';
+import { NavLink } from 'react-router-dom';
+import { FaRegCopy } from "react-icons/fa6";
 
 function AdminPage() {
     const [image, setImage] = useState(null);
@@ -12,7 +14,7 @@ function AdminPage() {
     const [tag, setTag] = useState("");
     const [tagAll, setTagAll] = useState([]);
     const [selectCategory, setSelectCategory] = useState([])
-    const { setUrl } = useContext(StateContext)
+    const { setUrl2 } = useContext(StateContext)
     const [Hato, setHato] = useState()
     // const formData = new FormData();
     // formData.append('image', image);
@@ -76,7 +78,7 @@ function AdminPage() {
                     setTagAll([])
                     alert("image saved")
                 })
-                .catch(() => alert("qandaydur hatolik bor"))
+                .catch((e) => console.log(e))
         }
         postData()
     }
@@ -84,23 +86,72 @@ function AdminPage() {
         function imgCategoryData() {
             axios.get(`${baseUrl}categories/`)
                 .then((res) => setSelectCategory(res.data?.all_categ))
-                .catch(() => alert(" categoiesda hatolik bor"))
+                .catch((e) => console.log(e))
         }
         imgCategoryData()
     }, []);
 
 
     const TegHaendlear = (e) => {
-        e.preventDefault()
-        if (tag) setTagAll([...tagAll, tag].slice(0, 20))
-        setTag("")
+        e.preventDefault();
 
+        if (tag) {
+            // Split the entered value by commas and trim each part
+            const tagsArray = tag.split(',').map(tagPart => tagPart.trim());
+
+            // Add each part to the tagAll array (up to a maximum of 20)
+            setTagAll([...tagAll, ...tagsArray].slice(0, 20));
+        }
+
+        setTag("");
     }
+
+    // ...
+
+    const handleCopy = () => {
+        // Join the values in tagAll with commas
+        const tagsString = tagAll.join(', ');
+    
+        // Check if navigator.clipboard is available
+        if (navigator.clipboard) {
+            // Use navigator.clipboard.writeText if available
+            navigator.clipboard.writeText(tagsString)
+                .then(() => {
+                   alert('Tags copied to clipboard:', tagsString);
+                    // You can provide user feedback here if needed
+                })
+                .catch(error => {
+                    alert('Error copying tags to clipboard:', error);
+                    // Handle the error or provide user feedback
+                });
+        } else {
+            // Fallback for browsers that do not support navigator.clipboard
+    
+            // Create a temporary textarea element
+            const textarea = document.createElement('textarea');
+            // Set the value of the textarea to the tags string
+            textarea.value = tagsString;
+            // Append the textarea to the document
+            document.body.appendChild(textarea);
+            // Select the text in the textarea
+            textarea.select();
+            // Execute the copy command
+            document.execCommand('copy');
+            // Remove the textarea from the document
+            document.body.removeChild(textarea);
+            alert('Tags copied to clipboard:', tagsString);
+
+            // console.warn('Clipboard API not supported. Fallback to alternative method:', tagsString);
+            // console.log('Tags copied to clipboard using alternative method:', tagsString);
+            // You can provide user feedback here if needed
+        }
+    };
+    
     // console.log(selectCategory)
     // console.log(tagAll)
     // console.log(image)
     const currentPageUrl = window.location.href;
-    setUrl(currentPageUrl)
+    setUrl2(currentPageUrl)
     return (
         <div className=' bg-[#F0F0F8]'>
             <div className='px-11'>
@@ -121,7 +172,7 @@ function AdminPage() {
                             {/* Fayl tanlash uchun input */}
                             <input required className="sr-only" name='image' accept=".png" onChange={ImageFilehaendlear} type="file" />
                         </label>
-                        <h1 className='text-sm font-semibold text-[#272847]'>Drag in drop files or</h1>
+                        <h1 className='text-sm font-semibold text-[#272847]'>Drag in drop files or </h1>
                     </div>
                 </div>
 
@@ -135,7 +186,7 @@ function AdminPage() {
                     <div className='w-full flex flex-row gap-10'>
 
                         <div className=' w-[300px]   flex flex-col gap-3 flex-2   ' >
-                       
+
                             <label className='flex flex-col gap-1 w-full text-lg text-gray-600 ' >Name:
                                 <input required className='px-3 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setName(e.target.value)} value={name} type="text" name='name' />
                             </label>
@@ -149,7 +200,14 @@ function AdminPage() {
                             <form className='flex flex-col gap-2' onSubmit={TegHaendlear} >
 
                                 <label htmlFor="" className='flex flex-col gap-1 w-full text-lg text-gray-600 '>Tags:
-                                    <input className='px-3 py-1 rounded-3xl border-2 border-gray-300'  required value={tag} onChange={e => setTag(e.target.value)} type="text" id="" />
+                                    <input
+                                        className='px-3 py-1 rounded-3xl border-2 border-gray-300'
+                                        required
+                                        value={tag}
+                                        onChange={e => setTag(e.target.value)}
+                                        type="text"
+                                        id=""
+                                    />
                                 </label>
                                 <button className=' bg-cyan-600 text-white rounded-3xl  text-lg h-10 absolute w-[130px] top-[340px] ' >Add Tag</button>
                             </form>
@@ -159,14 +217,15 @@ function AdminPage() {
 
                             {/* </div> */}
                         </div>
-                        <div className=' h-96 rounded-2xl border border-gray-200 shadow-md shadow-gray-300 bg-white   flex-shrink-0   min-w-[600px]  flex-1  max-w-[1400px]  p-5 gap-3 overflow-y-auto hide-scroll'>
+                        <div className=' h-96 rounded-2xl border border-gray-200 shadow-md shadow-gray-300 bg-white flex-1     min-w-[600px]    max-w-[1400px]  p-5 gap-3 flex-shrink-0 overflow-y-auto hide-scroll'>
                             {
                                 tagAll.map((tg, index) => (
-                                    <h1 className={` inline-flex px-[25px] h-[40px] mt-2 items-center text-center mr-2  row-span-auto   justify-center rounded-[10px] border  border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200 transition flex-shrink-0 `} key={index}>
+                                    <h1 className={` inline-flex px-[25px] h-[40px] mt-2 items-center text-center mr-2  row-span-auto    justify-center rounded-[10px] border  border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200 transition flex-shrink-0 `} key={index}>
                                         {tg}
                                     </h1>
                                 ))
                             }
+                        <button className=' absolute bottom-[112px] right-[18px] text-xl text-zinc-400' onClick={handleCopy}><FaRegCopy /></button>
                         </div>
                     </div>
 

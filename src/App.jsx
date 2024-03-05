@@ -7,7 +7,15 @@ import DateilImage from './pages/DeteilImage/DateilImage'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './loyaut/Navbar/Navbar'
 import Modal from './loyaut/Navbar/Modal'
-
+import LoginAuthForm from './pages/Login/LoginAuthForm'
+import AdminPageDanate from './pages/AdminPage/AdminPageDanate'
+import ProtectedRoutes from './pages/Login/ProtectedRoutes'
+import Tekshiruv from './pages/DeteilImage/Tekshiruv'
+import AboutUs from './loyaut/AboutUs/AboutUs'
+import ContactUs from './loyaut/ContactUs/ContactUs'
+import PrivacyPolicy from './loyaut/PrivacyPolicy/PrivacyPolicy'
+import Faq from './loyaut/Faq/Faq'
+import TermsService from './loyaut/TermsService/TermsService'
 export const StateContext = createContext();
 
 function App() {
@@ -18,13 +26,17 @@ function App() {
   const [gender, setGender] = useState(localStorage.getItem('gender') || "");
   const [show, setShow] = useState(false);
   const [url, setUrl] = useState("");
+  const [url2, setUrl2] = useState("");
   const [quary, setQuary] = useState("");
-  const [basketId, setBasketId] = useState(localStorage.getItem('basketId') || "")
+  const [basketId, setBasketId] = useState(localStorage.getItem('basketId') || 0)
   const [update, setUpdate] = useState(0)
   const [apiLenght, setApiLenght] = useState(0)
   const [Name, setName] = useState(localStorage.getItem('Name') || "")
   const [deteilChildId, setDeilChildId] = useState(0)
   const [changeDefault, setChangeDefault] = useState("")
+  const [inputt, setInputt] = useState(false)
+  const [basketErrModal, setBasketErrModal] = useState(false)
+
   useEffect(() => {
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
@@ -54,24 +66,36 @@ function App() {
     <StateContext.Provider value={{
       categoriesImg, setCategoriesImg,
       productsImg, setProductsImg, role, setRole, token, setToken,
-      gender, setGender, show, setShow, url, setUrl, quary,
+      gender, setGender, show, setShow, url, setUrl, url2, setUrl2, quary,
       setQuary, basketId, setBasketId, update, setUpdate,
       apiLenght, setApiLenght, Name, setName, deteilChildId,
-      setDeilChildId, changeDefault, setChangeDefault
+      setDeilChildId, changeDefault, setChangeDefault,
+      inputt, setInputt,basketErrModal, setBasketErrModal 
     }}>
 
       <>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route
-            path='/POqFOyIASNkdNNUFqI6pgDR0CCqYPAM7ZYZcwUccCMCK74gbVyfmDFCrjuPyMWgxwCEuJWeNYXDPeRhRguI2KDn2wk9lGyNDkeua4Fz4AL8I49jlt6UtD2CvfnGuk5Zu1lHCEmskaK+hpB9SnBm+cINoGT98fmHxBi9ROWeTNH5w1maOrGlHk/J6z960/tgv8A4ak62c+yPhDqHNZRaNDucoYTNBzNkbSOT0j7/tD5Qc6As/UJ/M3wMOzlhh0HM6pjh0HM6pjdBoeQP5Y7WY/5QYaNkjKWnaK++J2vLCRoKb1D3QonJ+YfVjeFsUsZS0H5F+UKpLUZADsEOzlhkrktMbIE8BDuXyKtBylv7JHiY2wtBTE7XljycgrSfU8V+cO7P+z6ccCUU6qtrzAwrrpGqFfO2E3Hf4Q7pzFLsHIKVQM8wkEA9EDXvJ+EWCy8k7JL/BoILbLyJp2GBAgosifLF5QcQ71wOd9idW0w7FDHIEQcKwKb4ECIC3TnApvgQIgKBvjtDHIEB274QUwIEGhSuuDQIEAYjs864KtI7AgDUjpWsCBBk0mrdKmmsqdtCKjGu1T7ULJMpAgRoLK1YGvsgQIg7dgtwjM6oECKDIa/OOtAgQBcYECBAf/AdminPage'  // Corrected path attribute
-            element={<AdminPage />}
-          />
-          <Route path='/login' element={<Login />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route
+              path='/AdminPage'  // Corrected path attribute
+              element={<AdminPage />}
+            />
+            <Route path='/AdminDonatePage' element={<AdminPageDanate />} />
+          </Route>
+          {/* <Route path='/login' element={<Login />} /> */}
           {/* <Route path='/basket' element={<Basket />} /> */}
-          <Route path='/register' element={<Register />} />
+          {/* <Route path='/register' element={<Register />} /> */}
+          <Route path='/login' element={<LoginAuthForm />} />
+          <Route path='/tekshir' element={<Tekshiruv />} />
           <Route path='/modal' element={<Modal />} />
+          
+          <Route path='/aboutUs' element={<AboutUs />} />
+          <Route path='/contactUs' element={<ContactUs />} />
+          <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
+          <Route path='/termsService' element={<TermsService />} />
+          <Route path='/faq' element={<Faq />} />
           <Route path='/deteil/:id' element={<DateilImage />} />
         </Routes>
       </>

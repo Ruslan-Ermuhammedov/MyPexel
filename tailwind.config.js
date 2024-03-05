@@ -6,7 +6,8 @@ export default {
   ],
   theme: {
     screens: {
-      xl: '1640px',
+      md:"80rem",//1280
+      xl:"102rem",//1640px
     },
     extend: {
       

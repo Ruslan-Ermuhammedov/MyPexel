@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+*{
+  font-family: 'Rubik', sans-serif;
+}
 /* Add this to your styles or in your HTML file */
 .hide-scroll {
     scrollbar-width: none; /* Firefox */

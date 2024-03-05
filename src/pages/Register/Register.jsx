@@ -5,11 +5,10 @@ import axios from 'axios';
 import { baseUrl } from '../../constants/baseUrl';
 import { StateContext } from '../../App';
 function Register() {
-  const [userName, setUserName] = useState("")
-  const [password, setPassword] = useState("")
-  // const { show, setShow } = useContext(StateContext)
+  // const { show, setShow } = ueContext(StateContext)
   const [show, setShow] = useState(false)
-
+  const [password, setPassword] = useState("")
+  const [userName, setUserName] = useState("")
   const [genderR, setGenderR] = useState("")
   const [success, setSuccess] = useState("")
   const [err, setErr] = useState("")
@@ -41,7 +40,7 @@ function Register() {
         .catch((err) => {
           setSuccErr(false)
           setShow(true)
-          setErr(err.response.data.Error === undefined ? "Choose Gender" :err.response.data.Error)
+          // setErr(err.response.data.Error === undefined ? "Choose Gender" :err.response.data.Error)
 
         })
     }
@@ -85,6 +84,7 @@ function Register() {
               value={'True'}
               checked={genderR === 'True'}
             />
+
             Male
           </label>
 
@@ -99,7 +99,7 @@ function Register() {
             Female
           </label>
         </div>
-        <button className='w-full bg-[#9c2cff] text-white rounded-3xl py-1 text-xl mt-2  outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform' >Sign up</button>
+        <button className='w-full bg-[#9c2cff] text-white rounded-3xl py-1 text-xl mt-2  outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform' >Sign up</button>
         <h1 className='text-md text-slate-400'>
           Already have an account ?
           <Link to={"/login"} className='text-md text-blue-500 '> Sign In</Link>
