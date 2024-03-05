@@ -8,7 +8,7 @@ import SearchEmpty from '../../assets/images/EmptySearcha.png';
 import Ally from '../../assets/images/Ally.png';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import axios from 'axios';
-import '../ProductsImage/components/productsImageCardUi.css'
+import '../ProductsImage/components/ProductsImageCardUi.css'
 // import './components/ProductsImagesApi.css'
 import { useProductsImageQuery, useSearchedItemQuery } from '../../services/productsImageApi';
 import { useCategoriesQuery, useFilteredItemQuery } from '../../services/categoriesApi';
