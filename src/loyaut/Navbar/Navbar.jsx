@@ -26,6 +26,7 @@ import Faq from '../../assets/icons/faq.svg'
 import { useBasketImagesQuery } from '../../services/basketApi';
 import XXX from '../../assets/icons/xxx.svg'
 import BasketErrorModal from '../../pages/DeteilImage/BasketErrorModal';
+import LogoutImage from '../../assets/images/LogoutImage.png'
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const { role, token, setGender, setBasketId, DeleteBtn, basketErrModal, setBasketErrModal, changeDefault, setChangeDefault, gender, url2, url, Name, update, quary, setQuary, basketId, apiLenght, setApiLenght, inputt, setInputt } = useContext(StateContext)
@@ -128,6 +129,10 @@ const Navbar = () => {
     }
     LogoutPostData();
   }
+const logoutModal=()=>{
+  setLogoutShow(false)
+}
+
   // window.location.reload();
   const DanateHeandlear = () => {
     setDanateModal(true)
@@ -141,11 +146,11 @@ const Navbar = () => {
   }
 
 
-const FoterHaendlear=(link)=>{
-  navigate(`/${link}`)
-  setFModal(p => !p)
+  const FoterHaendlear = (link) => {
+    navigate(`/${link}`)
+    setFModal(p => !p)
 
-}
+  }
 
   return (
     <>
@@ -208,9 +213,20 @@ const FoterHaendlear=(link)=>{
             {/* https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg */}
             <div onClick={LogoutFalse} className={`   w-[100%] h-[1200px] absolute  left-0 top-0  ${logoutShow === true ? "" : "hidden"} `}>
             </div>
-            <div className={`  w-56 h-28  ${logoutShow === true ? "" : "hidden"} rounded-xl bg-white absolute top-24 left-[85%]  flex flex-col items-center justify-center gap-2 shadow-md shadow-red-300`}>
-              <h1 className=' text-xl font-medium text-[#6D71F9] '>{Name}</h1>
-              <button onClick={LogOutDelete} className=' w-[80%] rounded-full bg-red-500 text-white px-5 py-2  outline-none focus:ring-4 shadow-lg transform active:scale-75 transition-transform'>Log Out</button>
+            <div className={`  w-64  p-6   ${logoutShow === true ? "" : "hidden"} rounded-xl bg-white absolute top-24 left-[82%]  flex flex-col items-center  gap-4 shadow-md shadow-gray-500`}>
+              <img className='w-20' src={LogoutImage} alt="" />
+              <div className=' flex flex-col gap-2 items-center'>
+                {/* <h1 className=' text-xl font-medium text-[#6D71F9] '>{Name}</h1> */}
+                <h1 className=' text-center'>Oh no! You're leaving are you sure</h1>
+                <button onClick={logoutModal} className=' w-full rounded-full bg-[#6999ff] text-white px-5 py-2  outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'> Just Kidding</button>
+                <button
+                onClick={LogOutDelete}
+                  class="inline-block w-full px-6 py-2   leading-6 text-center text-red-500  transition bg-transparent border-2 border-red-500 rounded-full ripple active:scale-90 hover:bg-red-200 focus:outline-none"
+                >
+                  Log Out
+                </button>
+              </div>
+
             </div>
             <img
               onClick={token ? LogoutHeandlear : null}
@@ -218,30 +234,30 @@ const FoterHaendlear=(link)=>{
               src={avatarSrc}
               alt=""
             />
-            <img onClick={FoterModal} className={`  hover:bg-zinc-100  transition duration-200 px-[17px] rounded-full p-2 -mr-[90px] ${fModal ? 'bg-zinc-100' : ''} cursor-pointer   `} src={MainIcon} alt="" />
+            <img onClick={FoterModal} className={`  hover:bg-zinc-100  transition duration-200 px-[17px] rounded-full p-2 -mr-[87px] ${fModal ? 'bg-zinc-100' : ''} cursor-pointer   `} src={MainIcon} alt="" />
             <div className={`bg-[#00000013] absolute w-full h-screen top-0 left-0 z-40 transition-opacity duration-500 ${fModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={FoterModal}></div>
 
             <div className=''>
 
               <div className={`bg-white ${fModal ? 'opacity-100 scale-100' : 'opacity-0 scale-95 hidden'} w-60 h-[285px] rounded-xl absolute top-20 right-2 p-2 pt-4 shadow-lg shadow-[#3a3a3a2e] transition-all duration-500 transform flex flex-col items-start gap-2 z-50`}>
-                <button onClick={()=>FoterHaendlear("aboutUs")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
+                <button onClick={() => FoterHaendlear("aboutUs")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
                   <img src={About} className=' w-6 h-6' alt="" />
                   About Us
                 </button>
-                <button onClick={()=>FoterHaendlear("privacyPolicy")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
+                <button onClick={() => FoterHaendlear("privacyPolicy")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
                   <img className=' w-6 h-6' src={Privacy} alt="" />
                   PrivacyPolicy
                 </button>
 
-                <button onClick={()=>FoterHaendlear("termsService")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
+                <button onClick={() => FoterHaendlear("termsService")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
                   <img src={Terms} className=' w-6 h-6' alt="" />
                   Terms & Service
                 </button>
-                <button onClick={()=>FoterHaendlear("contactUs")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
+                <button onClick={() => FoterHaendlear("contactUs")} className={"cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2 transform active:scale-90 flex flex-row items-center"}>
                   <img src={Contact} className=' w-6 h-6' alt="" />
                   Contact Us
                 </button>
-                <button onClick={()=>FoterHaendlear("faq")} className='  flex flex-row items-center cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2  transform active:scale-90   '>
+                <button onClick={() => FoterHaendlear("faq")} className='  flex flex-row items-center cursor-pointer hover:bg-zinc-100 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono rounded-lg outline-none focus:ring-2  transform active:scale-90   '>
                   <img src={Faq} className='w-6 h-6' alt="" />
                   FAQ
                 </button >

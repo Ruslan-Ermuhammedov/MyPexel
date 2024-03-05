@@ -31,8 +31,7 @@ function AboutBar() {
           to={'/termsService'}
           className={` cursor-pointer border-b-4 ${currentPageUrl==='https://mypexel.com/termsService' ?"border-blue-500" :""} hover:border-blue-500 w-full transition duration-200 py-2 px-2 gap-4 text-lg font-mono  outline-none focus:border-blue-500   transform active:scale-90 flex flex-row items-center justify-center  `}>
           <img src={Terms} className=' w-6 h-6' alt="" />
-          Terms & Service
-        </NavLink>
+          Intellectual Property         </NavLink>
         <NavLink
           to={'/contactUs'}
           // activeClassName="border-b-4 border-blue-500"

@@ -6,7 +6,7 @@ function PrivacyPolicy() {
   return (
     <div>
       <AboutBar />
-      <div className=' flex flex-col px-48 py-10 gap-9'>
+      <div className=' flex flex-col px-48 py-20 gap-9 '>
         <div>
           <h1 className=' text-[15px] font-medium'>• User Information</h1>
           <h1 className=' text-[15px]'>User personal information is symbolically protected under our privacy policy and will not be disclosed. </h1>

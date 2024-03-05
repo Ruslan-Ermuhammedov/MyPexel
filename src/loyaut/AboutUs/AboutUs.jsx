@@ -8,7 +8,7 @@ function AboutUs() {
       <AboutBar />
       <div className='w-full'>
         <img className=' w-full h-96 bg-cover bg-no-repeat object-cover' src={My} alt="" />
-        <div className=' flex flex-col px-48 py-10 gap-9'>
+        <div className=' flex flex-col px-48 py-10  gap-9'>
           <div>
             <h1 className=' text-[15px] font-medium'>• About Us: </h1>
             <h1 className=' text-[15px]'>Welcome! to Mypexel.com, share high quality PNG images with transparent background for free worldwide.</h1>
