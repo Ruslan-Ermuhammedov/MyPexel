@@ -311,7 +311,7 @@ function ProductsImage() {
                     {
     quary ? (
         queryImages && queryImages.length > 0 ? (
-            <div className='grid grid-cols-5 gap-5'>
+            <div className='grid grid-cols-5 sm:grid-cols-2 sm:gap-1 md:grid-cols-4 md:gap-4 gap-5'>
                 <ProductsImageCard productsImg={queryImages} />
             </div>
         ) : (

@@ -193,14 +193,14 @@ function DateilImage() {
 
             <div className='  flex flex-row gap-10 p-12 px-40 '>
 
-                <div className='w-[1000px] h-[530px] flex items-center justify-center  bg-[url("https://img.lovepik.com/element/40203/0865.png_1200.png")] '>
+                <div className='w-[1000px] xl:w-[1200px] xl2:w-[1300px] h-[530px] flex items-center justify-center  bg-[url("https://img.lovepik.com/element/40203/0865.png_1200.png")] '>
                     {isLoadingProductsImageDetail && <h1>Loading..</h1>}
                     {isSuccessProductsImageDetail &&
                         <img src={`${imageUrl}${ProductsImageDetail?.image}`} className=' w-auto h-full   ' alt={`${imageUrl}${ProductsImageDetail.image}`} />
                     }
                 </div>
 
-                <div className='  w-80 flex flex-col gap-4 '>
+                <div className='  w-80 xl:w-[350px] flex flex-col gap-4  m-auto'>
                     <div className="overflow-hidden w-full h-96 relative">
                         <div className="flex transition-transform ease-in-out duration-500" style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}>
                             {sliderImages.map((image, index) => (
@@ -212,7 +212,7 @@ function DateilImage() {
                     </div>
                     <button onClick={handleDownload} className='w-full h-[48px]  rounded-[10px] bg-[#54C1FA] outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'> <FiDownload className='w-6 h-6 m-auto text-white outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform' /> </button>
                     <div className=' flex flex-row gap-3'>
-                        <button onClick={handleCopyClick} className='w-[156px] h-[46px] bg-[#6D71F9] rounded-[10px] text-white flex items-center justify-center outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'><FaRegCopy className='w-5 h-5  ' /></button>
+                        <button onClick={handleCopyClick} className='w-[156px] xl:w-[167px] h-[46px] bg-[#6D71F9] rounded-[10px] text-white flex items-center justify-center outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'><FaRegCopy className='w-5 h-5  ' /></button>
                         {showNotification && (
                             <div className='absolute top-[660px]   notification  animate-slideIn'>
                                 <div className="  flex bg-blue-100 rounded-lg p-4 mb-4 text-sm text-blue-700" role="alert">
@@ -223,7 +223,7 @@ function DateilImage() {
                                 </div>
                             </div>
                         )}
-                        <button onClick={AddBasketHaendlear} className='w-[156px] h-[46px] bg-[#6D71F9] rounded-[10px] text-white flex items-center justify-center outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'>
+                        <button onClick={AddBasketHaendlear} className='w-[156px] xl:w-[167px] h-[46px] bg-[#6D71F9] rounded-[10px] text-white flex items-center justify-center outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'>
                             <svg
                                 className='w-5 h-5   '
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

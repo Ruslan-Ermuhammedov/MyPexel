@@ -104,7 +104,7 @@ const [Active,setActive]=useState(false)
       <div
         onMouseEnter={() => setIconVisible(true)}
         onMouseLeave={() => setIconVisible(false)}
-        className=' rounded-lg  h-[300px]   flex  flex-row   bg-[url("https://i.postimg.cc/fbpx3p5Y/check-3.jpg")] shadow shadow-zinc-200 justify-center    '>
+        className=' rounded-lg  xl2:h-[360px]  h-[300px]  flex  flex-row   bg-[url("https://i.postimg.cc/fbpx3p5Y/check-3.jpg")] shadow shadow-zinc-200 justify-center    '>
         <LazyLoadImage
           className={` rounded-3xl w-full h-full   object-contain cursor-pointer `}
           src={`${imageUrl}${image.image}`}
@@ -122,7 +122,7 @@ const [Active,setActive]=useState(false)
 
             onMouseEnter={() => setIconVisible(true)}
             onMouseLeave={() => setIconVisible(false)}
-            className={`bg-gradient-to-t cursor-pointer absolute w-[17.5%]  rounded-lg  h-[300px] from-[#00000039] outline-none focus:ring-4 shadow-sm transform  transition-transform   z-[5]`}
+            className={`bg-gradient-to-t cursor-pointer absolute xl2:w-[18%] xl:w-[17.6%] w-[17.5%] rounded-lg xl2:h-[360px] h-[300px] from-[#00000039] outline-none focus:ring-4 shadow-sm transform  transition-transform   z-[5]`}
           >           
           </div>
         )}
@@ -131,7 +131,7 @@ const [Active,setActive]=useState(false)
               onClick={AddBasketHaendlear}
               onMouseEnter={() => setIconVisible(true)}
               onMouseLeave={() => setIconVisible(false)}
-              className='text-3xl z-20 absolute    mt-[14%] ml-[15%]   text-[#612fea] font-bold outline-none shadow-sm transform active:scale-90 transition-transform'
+              className='text-3xl z-20 absolute  xl2:mt-[260px] xl:mt-[222px]  mt-[14%] ml-[15%]   text-[#612fea] font-bold outline-none shadow-sm transform active:scale-90 transition-transform'
             >
               <svg
                 className='w-6 h-6'
@@ -146,7 +146,7 @@ const [Active,setActive]=useState(false)
               onMouseEnter={() => setIconVisible(true)}
               onMouseLeave={() => setIconVisible(false)}
               onClick={handleDownload}
-              className=' cursor-pointer z-20 text-3xl   absolute    mt-[17%] ml-[15%] text-[#ffffff] font-bold outline-none focus:ring-4 shadow-sm transform active:scale-90 transition-transform'
+              className=' cursor-pointer z-20 text-3xl xl2:mt-[315px] xl:mt-[265px]  absolute    mt-[17%] ml-[15%] text-[#ffffff] font-bold outline-none focus:ring-4 shadow-sm transform active:scale-90 transition-transform'
             />
           )}
         <div className=''>
