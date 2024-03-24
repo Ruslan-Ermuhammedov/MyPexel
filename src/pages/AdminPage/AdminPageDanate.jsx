@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Sidebar from '../../loyaut/Sidebar/Sidebar'
 import Header from '../../loyaut/Header/Header'
 import PageContent from '../../loyaut/PageContent/PageContent'
@@ -7,8 +7,10 @@ import { StateContext } from '../../App'
 function AdminPageDanate() {
     const {setUrl}=useContext(StateContext)
     const currentPageUrl = window.location.href;
-    
-    setUrl(currentPageUrl)
+    useEffect(()=>{
+
+        setUrl( currentPageUrl)
+    },[currentPageUrl])
     return (
         <div className={` flex items-start flex-row`} >
             <Sidebar />

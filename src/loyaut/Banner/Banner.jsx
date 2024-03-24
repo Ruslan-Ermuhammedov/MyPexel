@@ -76,7 +76,7 @@ function Banner() {
       {/* <div className={`bg-blue-300 w-80 h-40 rounded-2xl absolute left-[41%] transition-all duration-2000 ${show ? 'top-[50%]' : '-top-20'}`}>
         <h1>upload</h1>
       </div> */}
-      <div style={bannerStyle}>
+      <div  id='banner' style={bannerStyle}>
         <div className='flex flex-col items-center justify-center pt-24 '>
           <h1 className='font-noemal text-[45px] text-white '> WELCOME</h1>
           <h1 className='text-[40px] font-light text-white '>{Productsimaga?.result}+ FREE RESOURCE FOR YOUR DREAMS</h1>

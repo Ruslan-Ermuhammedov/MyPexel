@@ -10,12 +10,15 @@ import Modal from './loyaut/Navbar/Modal'
 import LoginAuthForm from './pages/Login/LoginAuthForm'
 import AdminPageDanate from './pages/AdminPage/AdminPageDanate'
 import ProtectedRoutes from './pages/Login/ProtectedRoutes'
-import Tekshiruv from './pages/DeteilImage/Tekshiruv'
 import AboutUs from './loyaut/AboutUs/AboutUs'
 import ContactUs from './loyaut/ContactUs/ContactUs'
 import PrivacyPolicy from './loyaut/PrivacyPolicy/PrivacyPolicy'
 import Faq from './loyaut/Faq/Faq'
 import TermsService from './loyaut/TermsService/TermsService'
+import Tekshiruv from './pages/Tekshiruv/Tekshiruv'
+import SnovPage from './pages/SnovPage/SnovPage'
+import NurAi from './pages/NurAi/NurAi'
+import Laning from './loyaut/Laning/Laning'
 export const StateContext = createContext();
 
 function App() {
@@ -36,6 +39,8 @@ function App() {
   const [changeDefault, setChangeDefault] = useState("")
   const [inputt, setInputt] = useState(false)
   const [basketErrModal, setBasketErrModal] = useState(false)
+  const [filterDonate, setFilterDonate] = useState("")
+  const [chexbox, setChexbox] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("token", token);
@@ -70,7 +75,8 @@ function App() {
       setQuary, basketId, setBasketId, update, setUpdate,
       apiLenght, setApiLenght, Name, setName, deteilChildId,
       setDeilChildId, changeDefault, setChangeDefault,
-      inputt, setInputt,basketErrModal, setBasketErrModal 
+      inputt, setInputt,basketErrModal, setBasketErrModal ,
+      filterDonate, setFilterDonate,chexbox, setChexbox
     }}>
 
       <>
@@ -88,8 +94,8 @@ function App() {
           {/* <Route path='/basket' element={<Basket />} /> */}
           {/* <Route path='/register' element={<Register />} /> */}
           <Route path='/login' element={<LoginAuthForm />} />
-          <Route path='/tekshir' element={<Tekshiruv />} />
           <Route path='/modal' element={<Modal />} />
+          <Route path='/nurAi' element={<NurAi />} />
           
           <Route path='/aboutUs' element={<AboutUs />} />
           <Route path='/contactUs' element={<ContactUs />} />
@@ -98,6 +104,7 @@ function App() {
           <Route path='/faq' element={<Faq />} />
           <Route path='/deteil/:id' element={<DateilImage />} />
         </Routes>
+        <Laning/>
       </>
     </StateContext.Provider>
   );

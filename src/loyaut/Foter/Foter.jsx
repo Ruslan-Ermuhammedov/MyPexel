@@ -16,7 +16,7 @@ function Foter() {
         <img src={instagram} alt="" />
         <img src={telegram} alt="" />
       </div>
-      <div><h1 className=' text-white'>© 2023-2024 Mypexel -All Rights Reserved.</h1></div>
+      <div><h1 className=' text-white'>© 2023-2024 Mypexel - All Rights Reserved.</h1></div>
     </div>
   )
 }

@@ -4,6 +4,10 @@ import { StateContext } from '../../App';
 import { baseUrl } from '../../constants/baseUrl';
 import { NavLink } from 'react-router-dom';
 import { FaRegCopy } from "react-icons/fa6";
+import { RiDeleteBin2Line } from "react-icons/ri";
+import XXX from '../../assets/icons/xxx.svg'
+import { useCategoriesQuery } from '../../services/categoriesApi';
+// import XXX from '../../assets/icons/xxx.svg'
 
 function AdminPage() {
     const [image, setImage] = useState(null);
@@ -16,6 +20,7 @@ function AdminPage() {
     const [selectCategory, setSelectCategory] = useState([])
     const { setUrl2 } = useContext(StateContext)
     const [Hato, setHato] = useState()
+    const [ImageName,setImageName]=useState("")
     // const formData = new FormData();
     // formData.append('image', image);
     // console.log(tag)
@@ -40,7 +45,7 @@ function AdminPage() {
     };
     const ImageFilehaendlear = (e) => {
         const file = e.target.files[0];
-
+        setName(file.name.slice(0,-4))
         // Check if a file is selected
         if (file) {
             const allowedExtensions = /\.(png)$/i;
@@ -72,8 +77,6 @@ function AdminPage() {
         function postData() {
             axios.post(`${baseUrl}upload/`, formData)
                 .then((res) => {
-
-                    // console.log(res.data)
                     setName("")
                     setTagAll([])
                     alert("image saved")
@@ -82,78 +85,71 @@ function AdminPage() {
         }
         postData()
     }
-    useEffect(() => {
-        function imgCategoryData() {
-            axios.get(`${baseUrl}categories/`)
-                .then((res) => setSelectCategory(res.data?.all_categ))
-                .catch((e) => console.log(e))
-        }
-        imgCategoryData()
-    }, []);
+    // useEffect(() => {
+    //     function imgCategoryData() {
+    //         axios.get(`${baseUrl}categories/`)
+    //             .then((res) => setSelectCategory(res.data?.all_categ))
+    //             .catch((e) => console.log(e))
+    //     }
+    //     imgCategoryData()
+    // }, []);
 
-
-    const TegHaendlear = (e) => {
-        e.preventDefault();
-
-        if (tag) {
-            // Split the entered value by commas and trim each part
-            const tagsArray = tag.split(',').map(tagPart => tagPart.trim());
-
-            // Add each part to the tagAll array (up to a maximum of 20)
-            setTagAll([...tagAll, ...tagsArray].slice(0, 20));
-        }
-
-        setTag("");
-    }
-
-    // ...
-
+    const { data: categories, isSuccess: isSuccessCategories, isLoading: isLoadingCategories } = useCategoriesQuery()
+// console.log(categories)
     const handleCopy = () => {
-        // Join the values in tagAll with commas
         const tagsString = tagAll.join(', ');
-    
-        // Check if navigator.clipboard is available
+
         if (navigator.clipboard) {
-            // Use navigator.clipboard.writeText if available
             navigator.clipboard.writeText(tagsString)
                 .then(() => {
-                   alert('Tags copied to clipboard:', tagsString);
-                    // You can provide user feedback here if needed
+                    alert('Tags copied to clipboard:', tagsString);
                 })
                 .catch(error => {
                     alert('Error copying tags to clipboard:', error);
-                    // Handle the error or provide user feedback
                 });
         } else {
-            // Fallback for browsers that do not support navigator.clipboard
-    
-            // Create a temporary textarea element
             const textarea = document.createElement('textarea');
-            // Set the value of the textarea to the tags string
             textarea.value = tagsString;
-            // Append the textarea to the document
             document.body.appendChild(textarea);
-            // Select the text in the textarea
             textarea.select();
-            // Execute the copy command
             document.execCommand('copy');
-            // Remove the textarea from the document
             document.body.removeChild(textarea);
             alert('Tags copied to clipboard:', tagsString);
-
-            // console.warn('Clipboard API not supported. Fallback to alternative method:', tagsString);
-            // console.log('Tags copied to clipboard using alternative method:', tagsString);
-            // You can provide user feedback here if needed
         }
     };
-    
+
+    const  TegHaendlear= (e) => {
+        e.preventDefault();
+
+        if (tag) {
+            const tagsArray = tag.split(',').map(tagPart => tagPart.trim());
+            setTagAll([...tagAll, ...tagsArray].slice(0, 20));
+        }
+
+        setTag('');
+    };
+
+    const handleTagRemoval = (tagToRemove) => {
+        const updatedTags = tagAll.filter(tag => tag !== tagToRemove);
+        setTagAll(updatedTags);
+    };
+    const TagRemove = (tagToRemove) => {
+        
+        setTagAll([]);
+        alert("Remove Tags")
+    };
+
     // console.log(selectCategory)
     // console.log(tagAll)
     // console.log(image)
     const currentPageUrl = window.location.href;
-    setUrl2(currentPageUrl)
+    useEffect(()=>{
+
+        setUrl2(currentPageUrl)
+    },[currentPageUrl])
     return (
         <div className=' bg-[#F0F0F8]'>
+            
             <div className='px-11'>
                 <div className='flex flex-row w-full h-[72px] items-center justify-center'>
                     <h1 className='text-xl font-bold text-[#272847]'>Upload  your content</h1>
@@ -188,11 +184,11 @@ function AdminPage() {
                         <div className=' w-[300px]   flex flex-col gap-3 flex-2   ' >
 
                             <label className='flex flex-col gap-1 w-full text-lg text-gray-600 ' >Name:
-                                <input required className='px-3 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setName(e.target.value)} value={name} type="text" name='name' />
+                                <input required  className='px-3 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setName(e.target.value)} value={name} type="text" name='name' />
                             </label>
                             <label className='flex flex-col gap-1 w-full text-lg text-gray-600 ' >Category:
                                 <select className='p-2 py-1 rounded-3xl border-2 border-gray-300' onChange={e => setCategory(e.target.value)} type="text" name='name' >
-                                    {selectCategory.map((category, index) => (
+                                    {isSuccessCategories && categories?.all_categ.map((category, index) => (
                                         <option className=' mr-10 ' key={index} value={category?.id}>{category?.name}</option>
                                     ))}
                                 </select>
@@ -217,18 +213,19 @@ function AdminPage() {
 
                             {/* </div> */}
                         </div>
-                        <div className=' h-96 rounded-2xl border border-gray-200 shadow-md shadow-gray-300 bg-white flex-1     min-w-[600px]    max-w-[1400px]  p-5 gap-3 flex-shrink-0 overflow-y-auto hide-scroll'>
+                        <div className='h-96 rounded-2xl border border-gray-200 shadow-md shadow-gray-300 bg-white flex-1 min-w-[600px] max-w-[1400px] p-5 gap-3 flex-shrink-0 overflow-y-auto hide-scroll'>
                             {
                                 tagAll.map((tg, index) => (
-                                    <h1 className={` inline-flex px-[25px] h-[40px] mt-2 items-center text-center mr-2  row-span-auto    justify-center rounded-[10px] border  border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200 transition flex-shrink-0 `} key={index}>
+                                    <div key={index} className="inline-flex px-[25px] h-[40px] mt-2 gap-3 items-center text-center mr-2 row-span-auto justify-center rounded-[10px] border border-[#F0F0F8] bg-[#f0f0f850] text-xl font-medium text-[#6D71F9] hover:bg-slate-200 transition flex-shrink-0">
                                         {tg}
-                                    </h1>
+                                        <button className='ml-2 ' onClick={() => handleTagRemoval(tg)}><img className='w-3 h-3' src={XXX} alt="s" /></button>
+                                    </div>
                                 ))
                             }
-                        <button className=' absolute bottom-[112px] right-[18px] text-xl text-zinc-400' onClick={handleCopy}><FaRegCopy /></button>
+                            <button className='absolute bottom-[112px] right-[18px] text-xl text-zinc-400' onClick={handleCopy}><FaRegCopy /></button>
+                            <button className='absolute bottom-[110px] right-[50px] text-2xl text-zinc-400' onClick={TagRemove}><RiDeleteBin2Line/></button>
                         </div>
                     </div>
-
                 </div>
 
                 {/*  */}

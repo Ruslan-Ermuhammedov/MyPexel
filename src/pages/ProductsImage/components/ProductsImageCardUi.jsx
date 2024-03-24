@@ -29,24 +29,47 @@ const [Active,setActive]=useState(false)
     navigate(`/deteil/${image.id}`);
     // window.location.reload();
   };
+  // const handleDownload = () => {
+  //   const downloadUrl = `${imageUrl}${image.image}`;
+  //   fetch(downloadUrl)
+  //     .then(response => response.blob())
+  //     .then(blob => {
+  //       const blobUrl = window.URL.createObjectURL(blob);
+
+  //       const link = document.createElement('a');
+  //       link.href = blobUrl;
+  //       link.download = `${image.custom_name}.png`;
+  //       link.click();
+
+  //       window.URL.revokeObjectURL(blobUrl);
+  //     })
+  //     .catch(error => setHato('Error fetching image:', error));
+  // };
+
+
   const handleDownload = () => {
-    const downloadUrl = `${imageUrl}${image.image}`;
+    // Construct the full image URL
+    const downloadUrl = `${imageUrl}/${image?.image}`;
+
+    // Fetch the image data
     fetch(downloadUrl)
-      .then(response => response.blob())
-      .then(blob => {
-        const blobUrl = window.URL.createObjectURL(blob);
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a Blob URL for the image data
+            const blobUrl = window.URL.createObjectURL(blob);
 
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = `${image.custom_name}.png`;
-        link.click();
+            // Create an anchor element for downloading
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = `${image?.image}`; // Set a default filename or derive it from the image URL
+            link.click();
 
-        window.URL.revokeObjectURL(blobUrl);
-      })
-      .catch(error => setHato('Error fetching image:', error));
-  };
-
-  
+            // Revoke the Blob URL to free up resources
+            window.URL.revokeObjectURL(blobUrl);
+        })
+        .catch(error => console.error('Error fetching image:', error));
+};
+// console.log(`${imageUrl}${image.image}`)
   
   const [addBasket] = useAddBasketMutation();
   const AddBasketHaendlear = async () => {
@@ -62,52 +85,17 @@ const [Active,setActive]=useState(false)
       console.error("Error:", error);
     }
   };
-  // function basketPostData() {
-  //   axios.post(`${baseUrl}cart/`, Id, {
-  //     headers: {
-  //       'Authorization': `Token ${token}`,
-  //     },
-  //   })
-  //     .then((res) => {
-  //       setUpdate(prevUpData => prevUpData + 2);
-  //       setBasketId(res.data?.cart_id);
-  //     })
-  //     .catch((err) => {
-  //       alert("Not Authorized");
-  //       setHato(err);
-  //     });
-  // }
-
-  // basketPostData();
-  // };
-
+  
   return (
     <>
-      {/* <div className={` bg-[#00000042] absolute w-[100%] h-screen top-0 left-0 z-40 backdrop-blur-[0.5px]  transition-all duration-500 ${basketErrModal ? '' : 'hidden'}  `} onClick={BasketModal}>
-
-      </div>
-      <div className={` absolute bg-white rounded-xl w-[340px] h-[365px] ${basketErrModal ? ' top-[152px]' : '-top-96'} z-50 shadow-md shadow-[#646464cc]  left-[40%] transition-all duration-700   `}>
-        <div>
-          <div className='w-full  h-44 bg-[#dfdfdf] rounded-t-xl   '>
-            <img className=' object-contain w-[290px]  m-auto' src={Reminder} alt="" />
-            <img onClick={BasketModal} className=' absolute top-3 left-[315px] w-3 h-3' src={XXX} alt="" />
-          </div>
-          <div className=' flex flex-col gap-2 items-center  pt-4'>
-            <h1 className='  font-semibold text-[26px] text-zinc-600 '>Hello, there </h1>
-            <h1 className=' text-[18px] w-80 font-medium text-zinc-500  text-center '>Please sign in or sign up in order to use cart</h1>
-            <button className=' rounded bg-[#6999ff] px-5 py-2  text-[18px] text-white '><NavLink to={"/login"}> Log In</NavLink></button>
-          </div>
-        </div>
-      </div> */}
-
-
       <div
+      
         onMouseEnter={() => setIconVisible(true)}
         onMouseLeave={() => setIconVisible(false)}
         className=' rounded-lg  xl2:h-[360px]  h-[300px]  flex  flex-row   bg-[url("https://i.postimg.cc/fbpx3p5Y/check-3.jpg")] shadow shadow-zinc-200 justify-center    '>
         <LazyLoadImage
           className={` rounded-3xl w-full h-full   object-contain cursor-pointer `}
-          src={`${imageUrl}${image.image}`}
+          src={`${imageUrl}/${image?.image}`}
           alt="hato"
           // style={{ cursor: 'pointer', minHeight: "150px", minWidth: "250px" }}
           onMouseEnter={() => setIconVisible(true)}
@@ -149,31 +137,7 @@ const [Active,setActive]=useState(false)
               className=' cursor-pointer z-20 text-3xl xl2:mt-[315px] xl:mt-[265px]  absolute    mt-[17%] ml-[15%] text-[#ffffff] font-bold outline-none focus:ring-4 shadow-sm transform active:scale-90 transition-transform'
             />
           )}
-        <div className=''>
-          {/* {iconVisible && (
-            <FiDownload
-              onMouseEnter={() => setIconVisible(true)}
-              onMouseLeave={() => setIconVisible(false)}
-              onClick={handleDownload}
-              className='h-auto cursor-pointer z-20 text-3xl absolute bottom-3 left-[93%] text-[#ffffff] font-bold outline-none focus:ring-4 shadow-sm transform active:scale-90 transition-transform'
-            />
-          )} */}
-          {/* {iconVisible && (
-            <button
-              onClick={AddBasketHaendlear}
-              onMouseEnter={() => setIconVisible(true)}
-              onMouseLeave={() => setIconVisible(false)}
-              className='text-3xl z-20 absolute bottom-[58px] left-[94%] text-[#612fea] font-bold outline-none shadow-sm transform active:scale-90 transition-transform'
-            >
-              <svg
-                className='w-6 h-6'
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              >
-                <path d="M2.31669 16V2.28571H0V0H3.47503C4.11478 0 4.63338 0.51168 4.63338 1.14286V14.8571H19.0414L21.358 5.71429H6.95007V3.42857H22.8417C23.4814 3.42857 24 3.94025 24 4.57143C24 4.66487 23.9884 4.75797 23.9654 4.84862L21.0695 16.2771C20.9407 16.7859 20.4774 17.1429 19.9458 17.1429H3.47503C2.8353 17.1429 2.31669 16.6312 2.31669 16ZM4.63338 24C3.35391 24 2.31669 22.9767 2.31669 21.7143C2.31669 20.4519 3.35391 19.4286 4.63338 19.4286C5.91285 19.4286 6.95007 20.4519 6.95007 21.7143C6.95007 22.9767 5.91285 24 4.63338 24ZM18.5335 24C17.254 24 16.2169 22.9767 16.2169 21.7143C16.2169 20.4519 17.254 19.4286 18.5335 19.4286C19.813 19.4286 20.8502 20.4519 20.8502 21.7143C20.8502 22.9767 19.813 24 18.5335 24Z" fill="#ffff" />
-              </svg>
-            </button>
-          )} */}
-        </div>
+    
       </div>
     </>
   );

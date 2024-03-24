@@ -129,9 +129,9 @@ const Navbar = () => {
     }
     LogoutPostData();
   }
-const logoutModal=()=>{
-  setLogoutShow(false)
-}
+  const logoutModal = () => {
+    setLogoutShow(false)
+  }
 
   // window.location.reload();
   const DanateHeandlear = () => {
@@ -154,15 +154,17 @@ const logoutModal=()=>{
 
   return (
     <>
-      <div className={` flex sticky top-0  left-0 right-0 z-[55] ${url !== currentPageUrl ? "" : "hidden"} ${url2 === 'https://mypexel.com/AdminDonatePage' ? 'hidden' : ''}`}>
+      <div
+       className={` flex sticky top-0  left-0 right-0 z-[55] ${url !== currentPageUrl ? "" : "hidden"} ${url2 === 'https://mypexel.com/AdminDonatePage' ? 'hidden' : ''}`}>
         <BasketErrorModal />
 
       </div>
-      <nav className={` w-full  h-[80px] ${url !== currentPageUrl ? "" : "hidden"} ${url2 === 'https://mypexel.com/AdminDonatePage' ? 'hidden' : ''}   flex flex-row items-center justify-between z-50  px-24 py-10 sticky top-0  left-0 right-0 ${scrollPosition > 200 ? 'bg-[#F0F0F8] ' : 'bg-gray-50'} shadow-sm  shadow-gray-200`}>
-        <div className=''>
+      <nav id='navbar' className={` w-full  h-[80px] ${url !== currentPageUrl ? "" : "hidden"} ${url2 === 'https://mypexel.com/AdminDonatePage' ? 'hidden' : ''}   flex flex-row items-center justify-between z-50  px-24 py-10 sticky top-0  left-0 right-0 ${scrollPosition > 200 ? 'bg-[#F0F0F8] ' : 'bg-gray-50'} shadow-sm  shadow-gray-200`}>
+        <div className=' flex flex-row gap-9  items-center justify-center '>
           <NavLink to={"/"} onClick={handleHomePageClick} className={`${isHomePageRaised ? 'raised' : ''}`}>
             <img className='text-xl w-[80px] ' src={Mypexel} alt="" />
           </NavLink>
+          <button style={{ background: 'linear-gradient(237.21deg, #00FFB3 0.76%, #6DC7F9 89.43%)' }} className=' cursor-pointer text-white px-5 py-1 rounded-md'><NavLink to={"/nurAi"}>NUR AI</NavLink></button>
         </div>
         {/* <div className={` bg-[#00000042] absolute w-[100%] h-screen top-0 left-0 z-40 backdrop-blur-[0.5px]  transition-all duration-500 ${basketErrModal ? '' : 'hidden'}  `} onClick={BasketModal}>
 
@@ -186,8 +188,8 @@ const logoutModal=()=>{
         <div className='flex  flex-row gap-14 items-center '>
 
           <div className=' flex flex-row gap-3   '>
-            <button className={`bg-[#6999ff] text-white rounded-md px-7   text-[17px] font-normal h-10 outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform ${scrollPosition > 250 ? '' : ''}  ${token ? "hidden" : ""} ${url !== currentPageUrl ? "" : "hidden"}  ${inputt ? "hidden " : ""}  `} onClick={NavigateLogin}> Sign in</button>
-            <button onClick={DanateHeandlear} className={`bg-[#2acf82]   text-white rounded-md px-7 ${scrollPosition > 250 ? '-mr-7' : ''}   text-[17px] font-normal h-10 outline-none focus:ring-4 shadow-md transform active:scale-90 transition-transform before:ease    w-40 overflow-hidden border border-green-500 ${inputt ? "hidden " : ""}  before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40        `} > Donate Png</button>
+            <button className={`bg-[#6999ff] text-white rounded-md px-7   text-[17px] font-normal h-10 outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform ${scrollPosition > 250 ? '' : ''}  ${token ? "hidden" : ""} ${url !== currentPageUrl ? "" : "hidden"}  ${inputt ? " " : ""}  `} onClick={NavigateLogin}> Sign in</button>
+            <button onClick={DanateHeandlear} className={`bg-[#2acf82]   text-white rounded-md px-7 ${scrollPosition > 250 ? '' : ''}   text-[17px] font-normal h-10 outline-none focus:ring-4 shadow-md transform active:scale-90 transition-transform before:ease    w-40 overflow-hidden border border-green-500 ${inputt ? "hidden " : ""}  before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40        `} > Donate Png</button>
             <button className={`bg-[#6999ff] text-white rounded-md px-7 text-[17px] font-normal h-10 outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform ${scrollPosition > 250 ? 'hidden' : ''}  ${role === "Admin" ? "" : "hidden"}  ${inputt ? "hidden " : ""}`}><NavLink to={url2 !== currentPageUrl ? "/AdminPage" : "/AdminDonatePage"} > {url2 !== currentPageUrl ? 'AdminPage' : 'DonatePage'}  </NavLink></button>
             {/* <button className={`bg-[#6999ff] text-white rounded-md px-7 text-[17px] font-normal h-10 outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform `} onClick={BasketModal}>Modal</button> */}
           </div>
@@ -220,8 +222,8 @@ const logoutModal=()=>{
                 <h1 className=' text-center'>Oh no! You're leaving are you sure</h1>
                 <button onClick={logoutModal} className=' w-full rounded-full bg-[#6999ff] text-white px-5 py-2  outline-none focus:ring-4 shadow-lg transform active:scale-90 transition-transform'> Just Kidding</button>
                 <button
-                onClick={LogOutDelete}
-                  class="inline-block w-full px-6 py-2   leading-6 text-center text-red-500  transition bg-transparent border-2 border-red-500 rounded-full ripple active:scale-90 hover:bg-red-200 focus:outline-none"
+                  onClick={LogOutDelete}
+                  className="inline-block w-full px-6 py-2   leading-6 text-center text-red-500  transition bg-transparent border-2 border-red-500 rounded-full ripple active:scale-90 hover:bg-red-200 focus:outline-none"
                 >
                   Log Out
                 </button>

@@ -1,30 +1,29 @@
 
-import { useContext } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { MdOutlineSpaceDashboard } from 'react-icons/md'
+import { useDonateImagesQuery, useFilterdonateImagesQuery } from '../../../services/imageDonate'
+import { StateContext } from '../../../App'
 
-// const sidebarItems = [
-//     { title: "Platform Launch", icon: <MdOutlineSpaceDashboard />, color: "text-gray-700", id: 1 },
-//     { title: "Marketing Plan", icon: <MdOutlineSpaceDashboard />, color: "text-gray-700", id: 2 },
-//     { title: "Roadmap", icon: <MdOutlineSpaceDashboard />, color: "text-gray-700", id: 3 },
-//     { title: "+ Create New Board", color: "text-blue-500", icon: <MdOutlineSpaceDashboard />, id: 4 },
-// ]
+
 function SidebarContentItems() {
-    // tracking-[2.4px]
+    const {setUrl,filterDonate, setFilterDonate}=useContext(StateContext)
+
+    const filterRef = useRef()
+    const filterHentlear = (e) => {
+        e.preventDefault();
+        setFilterDonate(filterRef.current.value)
+    }
+    // console.log(filterDonate)
+    // const { data: donateImage, isSuccess: isSuccessDonateImage, isLoading: isLoadingDonateImage } = useFilterdonateImagesQuery(filterDonate);
+    // console.log(donateImage)
+
     return (
         <div className=' pt-6  w-full'>
-            <input type="date" className=' rounded-lg border border-black' />
-           <button>search</button>
-            {/* <h1 className="ml-8 mb-5 text-base1 font-bold text-gray-700 uppercase ">
-                All Boards (3)
-            </h1>
-            <div className='w-full pr-6'>
-                {sidebarItems.map(item => (
-                    <button  className={`px-8 rounded-r-full duration-300 py-4 w-full flex items-center gap-x-4 ${item.color} hover:bg-blue-500 hover:text-white `} key={item.id}>
-                        {item.icon}
-                        <span className={`font-bold text-sm  `} >{item.title}</span>
-                    </button>
-                ))}
-            </div> */}
+            <form onSubmit={filterHentlear} className=' flex flex-col gap-3 p-5'>
+                <input ref={filterRef} type="date" className=' rounded-lg border border-black bg-gray-100 px-3 py-2' />
+                <button type="submit" style={{ background: 'linear-gradient(237.21deg, #00FFB3 0.76%, #6DC7F9 89.43%)' }} className=' cursor-pointer text-white px-5 py-1 rounded-md w-36 m-auto'>Filter</button>
+            </form>
+
         </div>
     )
 }

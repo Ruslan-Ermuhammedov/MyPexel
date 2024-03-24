@@ -6,7 +6,6 @@ import AdminPageDanate from '../AdminPage/AdminPageDanate'
 
 function ProtectedRoutes() {
     const {  role } = useContext(StateContext)
-console.log(role)
     return role === "Admin" ? (
         <>
             <Outlet />

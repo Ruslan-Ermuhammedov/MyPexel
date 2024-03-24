@@ -3,6 +3,7 @@
 @tailwind utilities;
 *{
   font-family: 'Rubik', sans-serif;
+  scroll-behavior: smooth;
 }
 /* Add this to your styles or in your HTML file */
 .hide-scroll {

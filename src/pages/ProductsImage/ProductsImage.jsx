@@ -15,7 +15,7 @@ import { useCategoriesQuery, useFilteredItemQuery } from '../../services/categor
 import { useAddBasketMutation } from '../../services/basketApi';
 
 function ProductsImage() {
-    const { categoriesImg, setCategoriesImg, productsImg, setProductsImg, quary } = useContext(StateContext);
+    const { categoriesImg, changeDefault, setChangeDefault, setQuary, setCategoriesImg, productsImg, setProductsImg, quary } = useContext(StateContext);
     const [iconVisible, setIconVisible] = useState(false);
 
     const [queryImageApi, setQueryImageApi] = useState([]);
@@ -84,7 +84,7 @@ function ProductsImage() {
     const [nextPageUrl, setNextPageUrl] = useState('');
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        fetchImages(`${baseUrl}ctg-filter/`);
+        fetchImages(`${baseUrl}test/`);
     }, []);
     const fetchImages = (url) => {
         if (loading) return;
@@ -92,11 +92,10 @@ function ProductsImage() {
         axios.get(url)
             .then(response => {
                 const data = response.data;
-
                 if (!nextPageUrl) {
                     setImages([]);
                 }
-                setImages(prevImages => [...prevImages, ...data.results.category_imgs]);
+                setImages(prevImages => [...prevImages, ...data.results]);
                 setNextPageUrl(data.next || '');
                 setLoading(false);
             })
@@ -105,14 +104,25 @@ function ProductsImage() {
                 setLoading(false);
             });
     };
+
     const handleCategoryClick = (categoryName) => {
         setImages([]);
         setNextPageUrl('');
-        fetchImages(categoryName
-            ? `${baseUrl}ctg-filter/${categoryName}/`
-            : `${baseUrl}ctg-filter/`
-        );
+        setCategory(categoryName)
+        setQuary("")
     };
+    useEffect(() => {
+
+        fetchImages(Category || quary
+            ? `${baseUrl}test/?category_name=${Category}&tags=${quary}`
+            : `${baseUrl}test/`
+        );
+        setChangeDefault("")
+    }, [quary, Category]);
+    useEffect(() => {
+
+        setImages([])
+    }, [changeDefault]);
     useEffect(() => {
         let isFetching = false;
         const handleScroll = () => {
@@ -127,7 +137,7 @@ function ProductsImage() {
                             isFetching = false;
                         })
                         .catch((error) => {
-                            console.error('Error fetching next page:', error);
+                            // console.error('Error fetching next page:', error);
                             isFetching = false;
                         });
                 }
@@ -139,7 +149,6 @@ function ProductsImage() {
 
 
 
-    const { data: Productsimaga } = useProductsImageQuery()
     // const handleCategoryClick = (category) => {
     //     setCategory(category);
     //     setCurrentPage(prevPage => {
@@ -148,6 +157,89 @@ function ProductsImage() {
     //         return 1;
     //     });
     // };
+
+    // Quary Search Api 
+    // useEffect(() => {
+    //     function imgCategoryData() {
+
+    //         axios.get(`${baseUrl}search/?tags=${quary}`)
+    //             .then((res) => {
+    //                 setQueryImageApi(res.data)
+    //             })
+    //             .catch(() => {
+    //                 setHato(" categoiesda hatolik bor")
+    //             })
+    //     }
+    //     if (quary) imgCategoryData()
+    // }, [quary]);
+    // const [loadingQuery, setLoadingQuery] = useState(false);
+    // const [queryImages, setQueryImages] = useState([]);
+    // const [nextPageUrl2, setNextPageUrl2] = useState('');
+    // console.log(queryImages)
+    // useEffect(() => {
+        // console.log("Fetching images for query:", quary);
+    //     fetchImagesQuery(`${baseUrl}search/?tags=${quary}`);
+    // }, [quary]);
+
+    // // ...
+
+    // const fetchImagesQuery = (url) => {
+    //     if (loadingQuery) return;
+    //     setLoadingQuery(true);
+
+    //     return axios.get(url)
+    //         .then(response => {
+    //             const data = response.data;
+
+    //             if (!nextPageUrl2) {
+    //                 setQueryImages([]);
+    //             }
+
+    //             setQueryImages(prevImages => [...prevImages, ...data.results]);
+    //             setNextPageUrl2(data.next || '');
+    //             setLoadingQuery(false);
+    //         })
+    //         .catch(error => {
+    //             // Handle error here if needed
+    //             console.error('Error fetching images:', error);
+    //             setLoadingQuery(false);
+    //             throw error; // Rethrow error to propagate it to the caller
+    //         });
+    // };
+    // useEffect(() => {
+    //     fetchImagesQuery(`${baseUrl}search/?tags=${quary}`);
+    // }, [quary]);
+
+    // // ...
+
+    // useEffect(() => {
+    //     let isFetching = false;
+    //     const handleScroll = () => {
+    //         const scrollThresholdRatio = 0.8;
+    //         const remainingDistance = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+    //         const scrollThreshold = window.innerHeight * scrollThresholdRatio;
+
+    //         if (!isFetching && remainingDistance <= scrollThreshold) {
+    //             if (nextPageUrl2) {
+    //                 isFetching = true;
+    //                 fetchImagesQuery(nextPageUrl2)
+    //                     .then(() => {
+    //                         isFetching = false;
+    //                     })
+    //                     .catch((error) => {
+    //                         console.error('Error fetching next page:', error);
+    //                         isFetching = false;
+    //                     });
+    //             }
+    //         }
+    //     };
+
+
+    //     window.addEventListener('scroll', handleScroll);
+    //     return () => window.removeEventListener('scroll', handleScroll);
+    // }, [nextPageUrl2]);
+
+    const { data: Productsimaga } = useProductsImageQuery()
     const handleScrollButtonClick = (direction) => {
         const slider = sliderRef.current;
         if (slider) {
@@ -165,93 +257,7 @@ function ProductsImage() {
             }
         }
     };
-    // Quary Search Api 
-    // useEffect(() => {
-    //     function imgCategoryData() {
-
-    //         axios.get(`${baseUrl}search/?tags=${quary}`)
-    //             .then((res) => {
-    //                 setQueryImageApi(res.data)
-    //             })
-    //             .catch(() => {
-    //                 setHato(" categoiesda hatolik bor")
-    //             })
-    //     }
-    //     if (quary) imgCategoryData()
-    // }, [quary]);
-    const [loadingQuery, setLoadingQuery] = useState(false);
-    const [queryImages, setQueryImages] = useState([]);
-    const [nextPageUrl2, setNextPageUrl2] = useState('');
-    // console.log(queryImages)
-    useEffect(() => {
-        // console.log("Fetching images for query:", quary);
-        fetchImagesQuery(`${baseUrl}search/?tags=${quary}`);
-    }, [quary]);
-    
-    // ...
-    
-    const fetchImagesQuery = (url) => {
-        if (loadingQuery) return;
-        setLoadingQuery(true);
-    
-        axios.get(url)
-            .then(response => {
-                const data = response.data;
-    
-                if (!nextPageUrl2) {
-                    setQueryImages([]);
-                }
-    
-                setQueryImages(prevImages => [...prevImages, ...data.results]);
-                setNextPageUrl2(data.next || '');
-                setLoadingQuery(false);
-            })
-            .catch(error => {
-                // console.error('Error fetching images:', error);
-                // console.error('Response data:', error.response.data);
-                // console.error('Response status:', error.response.status);
-                // console.error('Response headers:', error.response.headers);
-                setLoadingQuery(false);
-            });
-    };
-    
-    
-
-
-    useEffect(() => {
-        fetchImagesQuery(`${baseUrl}search/?tags=${quary}`);
-    }, [quary]);
-    
-    // ...
-    
-    useEffect(() => {
-        let isFetching = false;
-        const handleScroll = () => {
-            const scrollThresholdRatio = 0.8;
-            const remainingDistance = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
-            const scrollThreshold = window.innerHeight * scrollThresholdRatio;
-        
-            if (!isFetching && remainingDistance <= scrollThreshold) {
-                if (nextPageUrl2) {
-                    isFetching = true;
-                    fetchImagesQuery(nextPageUrl2)
-                        .then(() => {
-                            isFetching = false;
-                        })
-                        .catch((error) => {
-                            console.error('Error fetching next page:', error);
-                            isFetching = false;
-                        });
-                }
-            }
-        };
-        
-    
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [nextPageUrl2]);
-    
-
+    // console.log(images)
     return (
         <div className='py-5'>
             <div
@@ -293,6 +299,24 @@ function ProductsImage() {
 
             <div className='px-16 py-5'>
                 <div className='py-7'>
+
+
+                    {
+
+
+                        images && !loading &&
+                            images.length > 0 ? (
+                            <div className='grid grid-cols-5 gap-5'>
+                                <ProductsImageCard productsImg={images} />
+                            </div>
+                        ) : (
+                            <div className='flex flex-col gap-5 w-[100px]'>
+                                <img className='absolute w-[1000px] left-[23%]' src={SearchEmpty} alt="No images found" />
+                                <h1 className='absolute text-xl font-medium italic text-[#acacac] left-[44%]'>No Images Found</h1>
+                            </div>
+                        )
+
+                    }
                     {loading && (
                         <div className='pl-[45%]'>
                             <TailSpin
@@ -303,37 +327,10 @@ function ProductsImage() {
                                 ariaLabel='Loading images...'
                                 radius='1'
                                 wrapperStyle={{}}
-                                wrapperClass=''
+                            // wrapperClass=''
                             />
                         </div>
                     )}
-
-                    {
-    quary ? (
-        queryImages && queryImages.length > 0 ? (
-            <div className='grid grid-cols-5 sm:grid-cols-2 sm:gap-1 md:grid-cols-4 md:gap-4 gap-5'>
-                <ProductsImageCard productsImg={queryImages} />
-            </div>
-        ) : (
-            <div className='flex flex-col gap-5 w-[100px]'>
-                <img className='absolute w-[1000px] left-[23%]' src={SearchEmpty} alt="No images found" />
-                <h1 className='absolute text-xl font-medium italic text-[#acacac] left-[44%]'>No Images Found</h1>
-            </div>
-        )
-    ) : (
-        images && images.length > 0 ? (
-            <div className='grid grid-cols-5 gap-5'>
-                <ProductsImageCard productsImg={images} />
-            </div>
-        ) : (
-            <div className='flex flex-col gap-5 w-[100px]'>
-                <img className='absolute w-[1000px] left-[23%]' src={SearchEmpty} alt="No images found" />
-                <h1 className='absolute text-xl font-medium italic text-[#acacac] left-[44%]'>No Images Found</h1>
-            </div>
-        )
-    )
-}
-
 
 
                     {/* {(isSuccessFilteredCategories &&

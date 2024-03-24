@@ -117,6 +117,8 @@ const [success,setSuccess]=useState(null)
                 Upload a file
               </button>
             </header>
+            <h1 className=' mt-5 text-xs m-auto text-gray-400'>Mypexel does not utilize the submitted PNG images for commercial purposes and ensures the protection of content rights.</h1>
+
             {
               Object.entries(files).length ?
                 <h1 className="pt-5 pb-5 font-semibold sm:text-lg text-gray-900 m-auto" >Your images </h1>

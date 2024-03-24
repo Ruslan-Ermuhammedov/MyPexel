@@ -9,11 +9,15 @@ export const donateImage = createApi({
   tagTypes: ["Donate"],
   endpoints: (builder) => ({
     donateImages: builder.query({
-      query: () => ({
-        url: `donate-png/`,
+      query: () => `donate-png/`,
+      providesTags: ["Donate"],
+    }),
+    filterdonateImages: builder.query({
+      query: (date = "") => ({
+        url: `donate-png/${date}`,
         method: "GET",
       }),
-      providesTags: ["Donate"],
+      invalidatesTags: ["Donate"],
     }),
     // searchedItem:builder.query({
     //   query: (query="") => ({
@@ -65,5 +69,6 @@ export const donateImage = createApi({
 export const {
 
   useDonateImagesQuery,
-  useAddDonateImageMutation
+  useAddDonateImageMutation,
+  useFilterdonateImagesQuery
 } = donateImage;

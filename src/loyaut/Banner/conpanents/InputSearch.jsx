@@ -17,21 +17,19 @@ function InputSearch() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  const queryRef = useRef()
   const queryHaendlear = (e) => {
     e.preventDefault()
-    setQuary(queryRef.current.value)
+    setQuary(changeDefault)
   }
   
   return (
     <form
     onSubmit={queryHaendlear}
-    className={`flex flex-row ${inputt ? "hidden" :""} items-center w-[560px] md:w-[700px] xl:w-[860px] h-[40px] bg-white rounded-lg ${scrollPosition > 250 ? 'fixed top-5 flex-1 mr-60 z-[50] md:mr-[230px] xl:mr-48' : ''} `}
+    className={`flex flex-row ${inputt ? " hidden" :"z-50"} items-center w-[560px] md:w-[700px] xl:w-[860px] h-[40px] bg-white rounded-lg ${scrollPosition > 250 ? 'fixed top-5 flex-1 mr-60 z-[50] md:mr-[180px] md:w-[630px] xl:mr-48 w-[42 0px]' : ''} `}
   >
-    <input
-      defaultValue={changeDefault}
+    <input      
       type="text"
-      ref={queryRef}
+      value={changeDefault}
       onChange={(e) => setChangeDefault(e.target.value)}
       className="w-full outline-none px-3"
     />

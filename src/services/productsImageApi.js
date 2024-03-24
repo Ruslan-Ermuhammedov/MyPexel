@@ -10,16 +10,13 @@ export const productsImageApi = createApi({
       query: () => "/main/",
       providesTags: ["Images"],
     }),
-    searchedItem:builder.query({
-      query: (query="") => ({
-            url: `search/?tags=${query}`,
-            method: "GET",
-          }),
-          invalidatesTags: ["Images"],
+    searchedItem: builder.query({
+      query: ({ query = '', page = 1 }) => `search/?tags=${query}&page=${page}`,
+      invalidatesTags: ['Images'],
     }),
     productsImageDetail: builder.query({
       query: (imageId) => ({
-        url:`/main/${imageId}`,
+        url: `/main/${imageId}`,
       }),
       providesTags: ["User"],
     }),
