@@ -84,7 +84,7 @@ function ProductsImage() {
     const [nextPageUrl, setNextPageUrl] = useState('');
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        fetchImages(`${baseUrl}test/`);
+        fetchImages(`${baseUrl}combined-filter/`);
     }, []);
     const fetchImages = (url) => {
         if (loading) return;
@@ -114,8 +114,8 @@ function ProductsImage() {
     useEffect(() => {
 
         fetchImages(Category || quary
-            ? `${baseUrl}test/?category_name=${Category}&tags=${quary}`
-            : `${baseUrl}test/`
+            ? `${baseUrl}combined-filter/?category_name=${Category}&tags=${quary}`
+            : `${baseUrl}combined-filter/`
         );
         setChangeDefault("")
     }, [quary, Category]);
